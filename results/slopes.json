@@ -1,0 +1,30 @@
+{
+ "sparse.csv": {
+  "time_dfs": 1.01,
+  "time_bfs": 1.1,
+  "aug_dfs": 0.0,
+  "aug_bfs": 0.07,
+  "flow": -0.03,
+  "checks_dfs": 0.99,
+  "checks_bfs": 1.09
+ },
+ "dense.csv": {
+  "time_dfs": 3.42,
+  "time_bfs": 3.08,
+  "aug_dfs": 1.38,
+  "aug_bfs": 1.01,
+  "flow": 1.02,
+  "checks_dfs": 3.12,
+  "checks_bfs": 2.68
+ },
+ "capacity.csv": {
+  "time_dfs": 0.59,
+  "time_bfs": 0.05,
+  "aug_dfs": 0.59,
+  "aug_bfs": 0.04,
+  "flow": 1.01
+ },
+ "bad.csv": {
+  "time_adv": 0.98
+ }
+}
