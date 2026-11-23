@@ -143,9 +143,30 @@ def exp_bad():
     save("bad.csv", rows)
 
 
+def exp_hist(n=100, m=1000, U=100, count=1000):
+    """Серия E: много случайных сетей одного размера, разброс трудоёмкости."""
+    rows = []
+    for k in range(count):
+        edges = random_network(n, m, U, 50_000 + k)
+        row = {"seed": 50_000 + k}
+        for search in ("dfs", "bfs"):
+            g = build(n, edges)
+            f = g.max_flow(0, n - 1, search)
+            row["flow"] = f
+            row[f"aug_{search}"] = g.augmentations
+            row[f"checks_{search}"] = g.edge_checks
+        rows.append(row)
+    with open(os.path.join(RES, "hist.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+    print("hist.csv готово:", count, "сетей")
+
+
 if __name__ == "__main__":
     correctness()
     exp_bad()
     exp_capacity()
     exp_sparse()
     exp_dense()
+    exp_hist()

@@ -225,6 +225,23 @@ def fig_ratio():
     fig.savefig(os.path.join(FIG, "ratio.png")); plt.close(fig)
 
 
+def fig_hist():
+    """Серия E: гистограммы числа просмотренных дуг при фиксированном размере сети."""
+    rows = load("hist.csv")
+    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.3))
+    for ax, key, color, lab in ((axes[0], "checks_dfs", BLUE, "Поиск в глубину (DFS)"),
+                                (axes[1], "checks_bfs", ORANGE, "Поиск в ширину (BFS)")):
+        v = col(rows, key) / 1000
+        ax.hist(v, bins=25, weights=np.full(len(v), 1 / len(v)), color=color, alpha=0.85,
+                edgecolor="white", linewidth=0.6)
+        ax.axvline(v.mean(), color="black", ls="--", lw=1.2)
+        ax.set_title(lab, fontsize=11)
+        ax.set_xlabel("Просмотрено дуг, тыс.")
+        ax.set_ylabel("Относительная частота")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "hist.png")); plt.close(fig)
+
+
 def summary():
     out = {}
     for name in ("sparse.csv", "dense.csv"):
@@ -251,3 +268,5 @@ if __name__ == "__main__":
         fig_bad_time()
         fig_ratio()
         summary()
+    if os.path.exists(os.path.join(RES, "hist.csv")):
+        fig_hist()
